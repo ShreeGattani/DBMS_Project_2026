@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5; --primary-hover: #4338ca;
+      --bg: #f8fafc; --card-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #0f172a; --text-muted: #64748b;
+      --border: #e2e8f0; --error: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+    
+    .card { background: var(--card-bg); border-radius: 20px; padding: 40px 32px; max-width: 400px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); text-align: center; }
+    
+    .icon { font-size: 48px; margin-bottom: 16px; }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    p { color: var(--text-muted); font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+    
+    label { display: block; text-align: left; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+    input { width: 100%; padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 16px; font-weight: 500; margin-bottom: 20px; transition: all 0.2s; background: #fff; font-family: inherit; }
+    input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+    
+    button { width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 12px; padding: 16px; font-size: 17px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2); margin-top: 10px;}
+    button:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3); }
+    
+    #msg { margin-top: 16px; color: var(--error); font-size: 14px; font-weight: 500; min-height: 20px; }
+    .back { display: block; margin-top: 24px; color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .back:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">👨‍🏫</div>
+  <h1>Teacher Authentication</h1>
+  <p>Secure login required to access the central attendance dashboard.</p>
+
+  <div style="text-align: left;">
+    <label>Email</label>
+    <input id="email" type="text" placeholder="e.g. smith@college.edu">
+    
+    <label>Password</label>
+    <input id="password" type="password" placeholder="••••••••">
+  </div>
+
+  <button id="btn-login" onclick="login()">Sign In</button>
+  <div id="msg"></div>
+  
+  <a href="index.html" class="back">← Back to Home</a>
+</div>
+
+<script>
+const API = window.location.origin;
+
+async function login() {
+  const u = document.getElementById('email').value.trim();
+  const p = document.getElementById('password').value;
+  const msgEl = document.getElementById('msg');
+  const btn = document.getElementById('btn-login');
+  
+  if (!u || !p) return msgEl.textContent = 'Enter username and password.';
+
+  btn.disabled = true;
+  btn.textContent = 'Authenticating...';
+  msgEl.textContent = '';
+
+  try {
+    const res = await fetch(`${API}/teacher/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: u, password: p })
+    });
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+      localStorage.setItem('teacher_session', data.teacher_id);
+      window.location.replace('teacher.html');
+    } else {
+      msgEl.textContent = data.error || 'Invalid credentials.';
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  } catch (err) {
+    msgEl.textContent = 'Network error. Backend down?';
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+  }
+}
+</script>
+</body>
+</html>

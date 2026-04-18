@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Connect - Landing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5; --primary-hover: #4338ca;
+      --bg: #f8fafc; --card-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #0f172a; --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 16px; }
+    
+    .card { background: var(--card-bg); border-radius: 20px; padding: 48px 32px; max-width: 450px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); text-align: center; }
+    .icon { font-size: 56px; margin-bottom: 20px; }
+    h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+    p { color: var(--text-muted); font-size: 15px; margin-bottom: 40px; line-height: 1.5; }
+    
+    .grid { display: flex; flex-direction: column; gap: 16px; }
+    abtn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; background: #fff; color: var(--text-main); border: 2px solid #e2e8f0; border-radius: 14px; padding: 18px; font-size: 17px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    abtn:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 15px rgba(79, 70, 229, 0.1); color: var(--primary); }
+    abtn.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+    abtn.btn-primary:hover { background: var(--primary-hover); color: #fff; box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">📷</div>
+  <h1>QR Connect</h1>
+  <p>Welcome to the campus attendance framework. Please select your portal to continue.</p>
+
+  <div class="grid">
+    <a href="student.html" class="abtn btn-primary">
+      <span style="font-size: 24px;">🎓</span> Student Portal
+    </a>
+    <a href="teacher_login.html" class="abtn">
+      <span style="font-size: 24px;">👨‍🏫</span> Teacher Portal
+    </a>
+  </div>
+</div>
+
+</body>
+</html>
