@@ -58,7 +58,7 @@ Your application will now be running at: **http://localhost:3000**
 
 ---
 
-## 🔑 Mock Data Logins
+##  Mock Data Logins
 If you used the default `schema.sql` mock data, you can test the application using the following credentials:
 
 **Teacher Portal**
@@ -70,7 +70,7 @@ If you used the default `schema.sql` mock data, you can test the application usi
 
 ---
 
-## 📁 Code Structure & Description
+##  Code Structure & Description
 
 ### `database/`
 - **`schema.sql`**: The heart of the DBMS project. Contains the entirely normalized MySQL relational schema, composite keys, automatic UUID triggers, views for analytics, and transaction-safe stored procedures.
@@ -85,7 +85,7 @@ If you used the default `schema.sql` mock data, you can test the application usi
 
 ---
 
-## 🔗 References & URLs
+##  References & URLs
 - **Node.js**: [https://nodejs.org/](https://nodejs.org/) - JavaScript runtime environment.
 - **Express.js**: [https://expressjs.com/](https://expressjs.com/) - Backend web framework.
 - **MySQL 8.0**: [https://dev.mysql.com/doc/](https://dev.mysql.com/doc/) - Relational database management system.
