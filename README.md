@@ -16,6 +16,12 @@ A full-stack, DBMS-driven web application for managing student exam attendance s
 
 ## 🛠 Project Setup
 
+### 0. Clone the Repository
+First, clone the repository to your local machine and navigate into it:
+```bash
+git clone https://github.com/ShreeGattani/DBMS_Project_2026.git
+cd DBMS_Project_2026
+```
 ### 1. Database Configuration
 1. Make sure you have **MySQL** installed locally.
 2. Log into your local MySQL instance:
@@ -27,7 +33,12 @@ A full-stack, DBMS-driven web application for managing student exam attendance s
    source database/schema.sql;
    exit;
    ```
-4. Create a `.env` file in the `backend/` folder (use `.env.example` as a template) and add your MySQL credentials.
+4. Navigate to the `backend/` folder and copy the example environment file:
+   ```bash
+   cd backend
+   cp .env.example .env
+   ```
+5. Open the newly created `.env` file and update it with your actual MySQL database password.
 
 ### 2. Loading Dependencies
 You can automatically load all dependencies using the provided setup script.
@@ -59,4 +70,4 @@ If you used the default `schema.sql` mock data, you can test the application usi
 - **Password:** `hashed_pass_smith`
 
 **Student Portal**
-- **Enrollment Number:** `2410110302` (Sanya Tripathi)
+- **Enrollment Number:** `2410110323` (Shree Gattani)
