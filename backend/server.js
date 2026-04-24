@@ -25,7 +25,17 @@ app.post('/session', async (req, res) => {
       'INSERT INTO exams (exam_name, exam_date, start_time, end_time, status) VALUES (?, ?, ?, ?, ?)',
       [subject, dateStr, startTimeStr, endTimeStr, 'ACTIVE']
     );
-    res.json({ id: result.insertId, subject });
+    
+    const examId = result.insertId;
+    
+    // Automatically populate attendance table with 'ABSENT' for all students
+    // This allows the Cursor and Summary Views to accurately report absentees!
+    await pool.query(
+      'INSERT INTO attendance (exam_id, student_id, status) SELECT ?, student_id, "ABSENT" FROM students',
+      [examId]
+    );
+
+    res.json({ id: examId, subject });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -122,6 +132,49 @@ app.delete('/session/:id', async (req, res) => {
 app.get('/sessions/active', async (_req, res) => {
   try {
     const [rows] = await pool.query("SELECT exam_id AS id, exam_name AS subject FROM exams WHERE status = 'ACTIVE' ORDER BY exam_date DESC, start_time DESC");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ── Advanced Features: View, Cursor, Scalar Function, Trigger ──────────
+
+// 1. View: vw_exam_attendance_summary
+app.get('/records/summary/:exam_id', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM vw_exam_attendance_summary WHERE exam_id = ?', [req.params.exam_id]);
+    res.json(rows[0] || { total_enrolled: 0, total_present: 0, total_absent: 0 });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 2. Cursor: GenerateAbsenteesList
+app.get('/records/absentees/:exam_id', async (req, res) => {
+  try {
+    const [rows] = await pool.query('CALL GenerateAbsenteesList(?)', [req.params.exam_id]);
+    // Stored procedures returning result sets wrap them in an outer array
+    res.json(rows[0] || []);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 3. Scalar Function: GetStudentAttendancePercentage
+app.get('/student/stats/:student_id', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT GetStudentAttendancePercentage(?) AS percentage', [req.params.student_id]);
+    res.json(rows[0] || { percentage: 0 });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 4. Trigger logs: audit_logs
+app.get('/audit-logs', async (_req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM audit_logs ORDER BY logged_at DESC LIMIT 50');
     res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
