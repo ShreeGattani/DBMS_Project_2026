@@ -66,6 +66,7 @@
   <div class="icon">🏷️</div>
   <h1 id="welcome-msg">Welcome</h1>
   <p id="session-display" style="font-weight: 500; color: var(--primary); margin-bottom: 20px;"></p>
+  <p id="attendance-stats" style="font-weight: 600; color: var(--success); margin-bottom: 20px;"></p>
   <p>Show this code to your teacher to get marked present. This QR is only valid for this session.</p>
 
   <div id="qr-container">
@@ -118,7 +119,7 @@ async function login() {
 
     // Success
     const sessionName = sel.options[sel.selectedIndex].getAttribute('data-subject');
-    finishLogin(data.qr_code_text, data.name, sessionName);
+    finishLogin(data.qr_code_text, data.name, sessionName, data.student_id);
     
   } catch(e) {
     msgEl.textContent = 'Network error verifying Roll Number.';
@@ -128,9 +129,17 @@ async function login() {
   btn.textContent = 'Generate Secure QR';
 }
 
-function finishLogin(qrCodeText, studentName, sessionName) {
+function finishLogin(qrCodeText, studentName, sessionName, studentId) {
   document.getElementById('welcome-msg').textContent = `Hi, ${studentName.split(' ')[0]}`;
   document.getElementById('session-display').textContent = sessionName;
+  
+  // Fetch Attendance Percentage (Scalar Function)
+  fetch(`${API}/student/stats/${studentId}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('attendance-stats').textContent = `Your Overall Attendance: ${data.percentage || 0}%`;
+    })
+    .catch(e => console.log('Error fetching stats', e));
   
   document.getElementById('student-qrcode').innerHTML = '';
   // Encodes raw QR code text

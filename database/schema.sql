@@ -8,11 +8,6 @@ DROP DATABASE IF EXISTS qr_attendance_db;
 CREATE DATABASE qr_attendance_db;
 USE qr_attendance_db;
 
--- =============================================================================
--- 1. NORMALIZED TABLES & RELATIONS
--- =============================================================================
-
--- Table: teachers (Entity)
 CREATE TABLE teachers (
     teacher_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -21,7 +16,6 @@ CREATE TABLE teachers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table: students (Entity)
 CREATE TABLE students (
     student_id INT AUTO_INCREMENT PRIMARY KEY,
     enrollment_number VARCHAR(20) UNIQUE NOT NULL,
@@ -32,7 +26,6 @@ CREATE TABLE students (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table: exams (Entity)
 CREATE TABLE exams (
     exam_id INT AUTO_INCREMENT PRIMARY KEY,
     exam_name VARCHAR(100) NOT NULL,
@@ -42,7 +35,6 @@ CREATE TABLE exams (
     status ENUM('UPCOMING', 'ACTIVE', 'COMPLETED') DEFAULT 'UPCOMING'
 );
 
--- Table: exam_invigilators (Many-to-Many Relationship between exams and teachers)
 CREATE TABLE exam_invigilators (
     exam_id INT,
     teacher_id INT,
@@ -52,7 +44,6 @@ CREATE TABLE exam_invigilators (
     FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id) ON DELETE CASCADE
 );
 
--- Table: attendance (Weak Entity / Transactional Table dependent on exams and students)
 CREATE TABLE attendance (
     attendance_id INT AUTO_INCREMENT PRIMARY KEY,
     exam_id INT,
@@ -67,7 +58,6 @@ CREATE TABLE attendance (
     UNIQUE (exam_id, student_id) -- A student can only have one attendance record per exam
 );
 
--- Table: audit_logs (System logs populated by Triggers for security)
 CREATE TABLE audit_logs (
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     action_type VARCHAR(50),

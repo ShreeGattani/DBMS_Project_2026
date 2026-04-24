@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Teacher Dashboard</title>
@@ -17,329 +18,619 @@
       --success: #10b981;
       --success-bg: #d1fae5;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); color: var(--text-main); min-height: 100vh; padding: 40px 24px; }
-    .container { max-width: 900px; margin: 0 auto; }
-    h1 { font-size: 28px; font-weight: 700; margin-bottom: 32px; text-align: center; }
-    
-    .card { background: var(--card-bg); border-radius: 16px; padding: 32px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 24px; }
-    h2 { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
-    
-    label { font-size: 14px; font-weight: 500; color: var(--text-muted); display: block; margin-bottom: 8px; }
-    input, select { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 15px; margin-bottom: 20px; outline: none; transition: 0.2s; }
-    input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); }
-    
-    button { background: var(--primary); color: #fff; border: none; border-radius: 10px; padding: 12px 20px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-    button:hover { background: var(--primary-hover); transform: translateY(-1px); }
-    .btn-secondary { background: var(--text-muted); }
-    .btn-secondary:hover { background: #475569; }
-    .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text-main); }
-    .btn-outline:hover { border-color: var(--primary); background: rgba(79, 70, 229, 0.05); color: var(--primary); }
-    .btn-outline.active { border-color: var(--primary); background: var(--primary); color: #fff; }
-    
-    .flex { display: flex; gap: 12px; }
-    .mt-4 { margin-top: 16px; }
-    .mb-4 { margin-bottom: 16px; }
-    
-    .table-container { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
-    th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    th { background: #f8fafc; font-weight: 600; color: var(--text-muted); }
-    tr.present td { background: var(--success-bg); color: #065f46; font-weight: 500; }
-    tr.present td:last-child { color: var(--success); font-weight: 600; }
-    
-    .hidden { display: none !important; }
-    #reader { width: 100%; max-width: 500px; margin: 0 auto; border-radius: 12px; overflow: hidden; border: 2px dashed var(--border); }
-    
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 20px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--text-muted);
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary);
+      background: rgba(79, 70, 229, 0.05);
+      color: var(--primary);
+    }
+
+    .btn-outline.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .flex {
+      display: flex;
+      gap: 12px;
+    }
+
+    .mt-4 {
+      margin-top: 16px;
+    }
+
+    .mb-4 {
+      margin-bottom: 16px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    tr.present td {
+      background: var(--success-bg);
+      color: #065f46;
+      font-weight: 500;
+    }
+
+    tr.present td:last-child {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px dashed var(--border);
+    }
+
     /* Toast */
-    #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1f2937; color: white; padding: 14px 24px; border-radius: 30px; font-weight: 500; font-size: 15px; opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; }
-    #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-    #toast.success { background: var(--success); }
-    #toast.error { background: var(--error); }
+    #toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1f2937;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 15px;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    #toast.success {
+      background: var(--success);
+    }
+
+    #toast.error {
+      background: var(--error);
+    }
   </style>
 </head>
+
 <body>
-<div class="container">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
-    <h1 style="margin-bottom: 0;">📋 Complete Attendance Manager</h1>
-    <a href="index.html" onclick="localStorage.removeItem('teacher_session')" style="color: var(--error); font-weight: 600; text-decoration: none; padding: 10px 16px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; transition: 0.2s;">🚪 Logout</a>
-  </div>
+  <div class="container">
+    <div
+      style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+      <h1 style="margin-bottom: 0;">Complete Attendance Manager</h1>
+      <a href="index.html" onclick="localStorage.removeItem('teacher_session')"
+        style="color: var(--error); font-weight: 600; text-decoration: none; padding: 10px 16px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; transition: 0.2s;">🚪
+        Logout</a>
+    </div>
 
-  <!-- Start/Select Session -->
-  <div id="session-setup" class="card">
-    <h2>1. Select or Create Session</h2>
-    <div class="flex" style="flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 250px;">
-        <label>Existing Sessions</label>
-        <div class="flex">
-          <select id="session-select" style="margin-bottom: 0;">
-            <option value="">— choose a session —</option>
-          </select>
-          <button onclick="loadExistingSession()">Load</button>
+    <!-- Start/Select Session -->
+    <div id="session-setup" class="card">
+      <h2> Select or Create Session</h2>
+      <div class="flex" style="flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+          <label>Existing Sessions</label>
+          <div class="flex">
+            <select id="session-select" style="margin-bottom: 0;">
+              <option value="">— choose a session —</option>
+            </select>
+            <button onclick="loadExistingSession()">Load</button>
+          </div>
+        </div>
+
+        <div style="width: 1px; background: var(--border); margin: 0 16px;"></div>
+
+        <div style="flex: 1; min-width: 250px;">
+          <label>Create New Session</label>
+          <div class="flex">
+            <input id="subject" placeholder="Session subject" style="margin-bottom: 0;">
+            <input id="duration" type="number" value="30" min="1" placeholder="Mins"
+              style="width: 80px; margin-bottom: 0;" title="Duration in Minutes">
+            <button onclick="createSession()">Create</button>
+          </div>
         </div>
       </div>
-      
-      <div style="width: 1px; background: var(--border); margin: 0 16px;"></div>
-      
-      <div style="flex: 1; min-width: 250px;">
-        <label>Create New Session</label>
-        <div class="flex">
-          <input id="subject" placeholder="Session subject" style="margin-bottom: 0;">
-          <input id="duration" type="number" value="30" min="1" placeholder="Mins" style="width: 80px; margin-bottom: 0;" title="Duration in Minutes">
-          <button onclick="createSession()">Create</button>
+    </div>
+
+    <!-- Active Session Dashboard -->
+    <div id="active-session" class="card hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-4">
+        <h2 id="session-title" style="margin: 0; color: var(--primary);">Active Session</h2>
+        <div>
+          <button class="btn-secondary" onclick="deleteSession()"
+            style="padding: 8px 14px; font-size: 13px; background: #ef4444; color: white; margin-right: 8px;">🗑️ Delete
+            DB</button>
+          <button class="btn-secondary" onclick="exitSession()" style="padding: 8px 14px; font-size: 13px;">Exit
+            Log</button>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex mb-4">
+        <button id="tab-scan" class="btn-outline active" onclick="setMode('scan')" style="flex: 1;">📷 Scan Student
+          QR</button>
+        <button id="tab-records" class="btn-outline" onclick="setMode('records')" style="flex: 1;">📋 View All
+          Records</button>
+        <button id="tab-reports" class="btn-outline" onclick="setMode('reports')" style="flex: 1;">📊 Reports &
+          Audit</button>
+      </div>
+
+      <!-- Scanner View -->
+      <div id="view-scan" style="text-align: center; padding: 20px 0;">
+        <p style="color: var(--text-muted); margin-bottom: 16px;">Point your camera at a student's generated QR code to
+          mark them present.</p>
+        <div id="reader"></div>
+      </div>
+
+      <!-- Records View -->
+      <div id="view-records" class="hidden">
+        <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <p style="color: var(--text-muted); margin: 0;">Showing all enrolled students in database.</p>
+          <button onclick="refreshRecords()" style="padding: 6px 12px; font-size: 13px;">🔄 Refresh</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="records-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reports & Audit View -->
+      <div id="view-reports" class="hidden">
+        <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <!-- Button moved to the bottom -->
+        </div>
+
+        <!-- View: Summary -->
+        <div class="card" style="background: #fff; border: 1px solid var(--border); box-shadow: none; padding: 20px;">
+          <h3 style="margin-bottom: 15px; font-size: 16px;">Attendance Summary</h3>
+          <div class="flex" style="gap: 20px;">
+            <div style="flex: 1; padding: 15px; background: #f8fafc; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700;" id="summary-total">-</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Total Enrolled</div>
+            </div>
+            <div style="flex: 1; padding: 15px; background: var(--success-bg); border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: #065f46;" id="summary-present">-</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Present</div>
+            </div>
+            <div style="flex: 1; padding: 15px; background: #fef2f2; border-radius: 8px; text-align: center;">
+              <div style="font-size: 24px; font-weight: 700; color: var(--error);" id="summary-absent">-</div>
+              <div style="font-size: 13px; color: var(--text-muted);">Absent</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cursor: Absentees List -->
+        <div class="card" style="background: #fff; border: 1px solid var(--border); box-shadow: none; padding: 20px;">
+          <h3 style="margin-bottom: 15px; font-size: 16px;">Absentees List </h3>
+          <div class="table-container" style="max-height: 250px; overflow-y: auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Enrollment</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody id="absentees-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Trigger: Audit Logs -->
+        <div class="card" style="background: #fff; border: 1px solid var(--border); box-shadow: none; padding: 20px;">
+          <h3 style="margin-bottom: 15px; font-size: 16px;">Recent Audit Logs</h3>
+          <div
+            style="max-height: 250px; overflow-y: auto; background: #1e293b; color: #cbd5e1; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px;"
+            id="audit-logs-container">
+            Loading logs...
+          </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+          <button onclick="refreshReports()" style="padding: 10px 20px; font-size: 14px;">🔄 Refresh All Reports</button>
         </div>
       </div>
     </div>
+
   </div>
 
-  <!-- Active Session Dashboard -->
-  <div id="active-session" class="card hidden">
-    <div style="display: flex; justify-content: space-between; align-items: center;" class="mb-4">
-      <h2 id="session-title" style="margin: 0; color: var(--primary);">Active Session</h2>
-      <div>
-        <button class="btn-secondary" onclick="deleteSession()" style="padding: 8px 14px; font-size: 13px; background: #ef4444; color: white; margin-right: 8px;">🗑️ Delete DB</button>
-        <button class="btn-secondary" onclick="exitSession()" style="padding: 8px 14px; font-size: 13px;">Exit Log</button>
-      </div>
-    </div>
-    
-    <!-- Controls -->
-    <div class="flex mb-4">
-      <button id="tab-scan" class="btn-outline active" onclick="setMode('scan')" style="flex: 1;">📷 Scan Student QR</button>
-      <button id="tab-records" class="btn-outline" onclick="setMode('records')" style="flex: 1;">📋 View All Records</button>
-    </div>
-    
-    <!-- Scanner View -->
-    <div id="view-scan" style="text-align: center; padding: 20px 0;">
-      <p style="color: var(--text-muted); margin-bottom: 16px;">Point your camera at a student's generated QR code to mark them present.</p>
-      <div id="reader"></div>
-    </div>
-    
-    <!-- Records View -->
-    <div id="view-records" class="hidden">
-      <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <p style="color: var(--text-muted); margin: 0;">Showing all enrolled students in database.</p>
-        <button onclick="refreshRecords()" style="padding: 6px 12px; font-size: 13px;">🔄 Refresh</button>
-      </div>
-      <div class="table-container">
-        <table>
-          <thead><tr><th>Name</th><th>Email</th><th>Status</th></tr></thead>
-          <tbody id="records-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <!-- Toast element -->
+  <div id="toast"></div>
 
-</div>
-
-<!-- Toast element -->
-<div id="toast"></div>
-
-<script>
-// Authentication Guard
-if (!localStorage.getItem('teacher_session')) {
-  window.location.replace('teacher_login.html');
-}
-
-const API = window.location.origin;
-let currentSession = null;
-let html5QrcodeScanner = null;
-
-// --- Initialization ---
-async function fetchSessions() {
-  try {
-    const res = await fetch(`${API}/sessions`);
-    const sessions = await res.json();
-    const sel = document.getElementById('session-select');
-    sel.innerHTML = '<option value="">— choose a session —</option>' +
-      sessions.map(s => `<option value="${s.id}" data-subject="${s.subject}">${s.subject} — ${new Date(s.exam_date || Date.now()).toLocaleDateString()}</option>`).join('');
-  } catch(e) {
-    showToast("Error loading sessions", "error");
-  }
-}
-
-// --- Session Handlers ---
-async function createSession() {
-  const subject = document.getElementById('subject').value.trim();
-  const duration = document.getElementById('duration').value;
-  if (!subject) return showToast('Enter a subject name', 'error');
-
-  const res = await fetch(`${API}/session`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ subject, duration_minutes: +duration })
-  });
-  const data = await res.json();
-  
-  // Set current session
-  currentSession = { id: data.id, subject: data.subject };
-  activateSessionUI();
-  fetchSessions(); // Refresh list secretly
-}
-
-function loadExistingSession() {
-  const sel = document.getElementById('session-select');
-  if (!sel.value) return showToast('Please select a session from the list', 'error');
-  
-  const opt = sel.options[sel.selectedIndex];
-  currentSession = { id: sel.value, subject: opt.getAttribute('data-subject') };
-  activateSessionUI();
-}
-
-function exitSession() {
-  stopScanner();
-  currentSession = null;
-  document.getElementById('active-session').classList.add('hidden');
-  document.getElementById('session-setup').classList.remove('hidden');
-}
-
-async function deleteSession() {
-  if (!confirm("Are you sure? This deletes the session AND permanently wipes all its attendance records!")) return;
-  try {
-    const res = await fetch(`${API}/session/${currentSession.id}`, { method: 'DELETE' });
-    if (res.ok) {
-        showToast("Session & Data Deleted Forever!", "success");
-        setTimeout(() => { exitSession(); fetchSessions(); }, 1500);
-    } else {
-        showToast("Failed to delete session", "error");
+  <script>
+    // Authentication Guard
+    if (!localStorage.getItem('teacher_session')) {
+      window.location.replace('teacher_login.html');
     }
-  } catch (e) {
-    showToast("Network error deleting session.", "error");
-  }
-}
 
-function activateSessionUI() {
-  document.getElementById('session-setup').classList.add('hidden');
-  document.getElementById('active-session').classList.remove('hidden');
-  document.getElementById('session-title').textContent = currentSession.subject;
-  setMode('scan');
-}
+    const API = window.location.origin;
+    let currentSession = null;
+    let html5QrcodeScanner = null;
 
-// --- UI Modes ---
-function setMode(mode) {
-  const vScan = document.getElementById('view-scan');
-  const vRec = document.getElementById('view-records');
-  const tScan = document.getElementById('tab-scan');
-  const tRec = document.getElementById('tab-records');
-  
-  if (mode === 'scan') {
-    vScan.classList.remove('hidden');
-    vRec.classList.add('hidden');
-    tScan.classList.add('active');
-    tRec.classList.remove('active');
-    startScanner();
-  } else {
-    vScan.classList.add('hidden');
-    vRec.classList.remove('hidden');
-    tScan.classList.remove('active');
-    tRec.classList.add('active');
-    stopScanner();
-    refreshRecords();
-  }
-}
-
-// --- Scanner ---
-function startScanner() {
-  if (html5QrcodeScanner) return; // Already running
-  
-  html5QrcodeScanner = new Html5Qrcode("reader");
-  html5QrcodeScanner.start(
-    { facingMode: "environment" }, 
-    { fps: 10, qrbox: { width: 250, height: 250 } },
-    onScanSuccess,
-    (errorMessage) => { /* Background scan errors are frequent and ignorable */ }
-  ).catch(err => {
-    showToast(`Camera start failed: ${err.message || err}`, "error");
-    // Fallback if camera fail
-    document.getElementById('reader').innerHTML = `<p style="padding:40px;color:var(--error);">Camera access denied or unavailable. Please ensure you are on localhost or HTTPS, and have granted permissions.</p>`;
-  });
-}
-
-function stopScanner() {
-  if (html5QrcodeScanner) {
-    html5QrcodeScanner.stop().then(() => {
-      html5QrcodeScanner.clear();
-      html5QrcodeScanner = null;
-    }).catch(e => console.log('Stop error', e));
-  }
-}
-
-// State var to prevent scanning the same QR Rapid-fire
-let isProcessingScan = false;
-
-async function onScanSuccess(decodedText, decodedResult) {
-  if (isProcessingScan) return;
-  isProcessingScan = true;
-  
-  try {
-    const qrCodeText = decodedText;
-    
-    // Attempt to mark attendance
-    const res = await fetch(`${API}/attend`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        qr_code: qrCodeText, 
-        exam_id: currentSession.id,
-        teacher_id: localStorage.getItem('teacher_session') 
-      })
-    });
-    const attendResponse = await res.json();
-    
-    if (res.ok) {
-      showToast(`✅ ${attendResponse.message} (${attendResponse.student_name})`, 'success');
-      // Adding a slight delay to allow the teacher to say "next!" before it scans the exact same QR
-      setTimeout(() => { isProcessingScan = false; }, 2000); 
-    } else {
-      showToast(attendResponse.error || "Failed to mark", "error");
-      setTimeout(() => { isProcessingScan = false; }, 1500);
+    // --- Initialization ---
+    async function fetchSessions() {
+      try {
+        const res = await fetch(`${API}/sessions`);
+        const sessions = await res.json();
+        const sel = document.getElementById('session-select');
+        sel.innerHTML = '<option value="">— choose a session —</option>' +
+          sessions.map(s => `<option value="${s.id}" data-subject="${s.subject}">${s.subject} — ${new Date(s.exam_date || Date.now()).toLocaleDateString()}</option>`).join('');
+      } catch (e) {
+        showToast("Error loading sessions", "error");
+      }
     }
-  } catch (e) {
-    showToast("❌ Invalid QR Code scanned.", "error");
-    setTimeout(() => { isProcessingScan = false; }, 1500);
-  }
-}
 
-// --- Records ---
-async function refreshRecords() {
-  const tbody = document.getElementById('records-body');
-  tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Loading...</td></tr>';
-  
-  try {
-    const res = await fetch(`${API}/records/all/${currentSession.id}`);
-    const rows = await res.json();
-    
-    tbody.innerHTML = rows.map(r => {
-      const isPresent = r.status === 'PRESENT';
-      let timeStr = isPresent ? new Date(r.marked_at).toLocaleTimeString() : 'Absent';
-      
-      return `
+    // --- Session Handlers ---
+    async function createSession() {
+      const subject = document.getElementById('subject').value.trim();
+      const duration = document.getElementById('duration').value;
+      if (!subject) return showToast('Enter a subject name', 'error');
+
+      const res = await fetch(`${API}/session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subject, duration_minutes: +duration })
+      });
+      const data = await res.json();
+
+      // Set current session
+      currentSession = { id: data.id, subject: data.subject };
+      activateSessionUI();
+      fetchSessions(); // Refresh list secretly
+    }
+
+    function loadExistingSession() {
+      const sel = document.getElementById('session-select');
+      if (!sel.value) return showToast('Please select a session from the list', 'error');
+
+      const opt = sel.options[sel.selectedIndex];
+      currentSession = { id: sel.value, subject: opt.getAttribute('data-subject') };
+      activateSessionUI();
+    }
+
+    function exitSession() {
+      stopScanner();
+      currentSession = null;
+      document.getElementById('active-session').classList.add('hidden');
+      document.getElementById('session-setup').classList.remove('hidden');
+    }
+
+    async function deleteSession() {
+      if (!confirm("Are you sure? This deletes the session AND permanently wipes all its attendance records!")) return;
+      try {
+        const res = await fetch(`${API}/session/${currentSession.id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast("Session & Data Deleted Forever!", "success");
+          setTimeout(() => { exitSession(); fetchSessions(); }, 1500);
+        } else {
+          showToast("Failed to delete session", "error");
+        }
+      } catch (e) {
+        showToast("Network error deleting session.", "error");
+      }
+    }
+
+    function activateSessionUI() {
+      document.getElementById('session-setup').classList.add('hidden');
+      document.getElementById('active-session').classList.remove('hidden');
+      document.getElementById('session-title').textContent = currentSession.subject;
+      setMode('scan');
+    }
+
+    // --- UI Modes ---
+    function setMode(mode) {
+      const vScan = document.getElementById('view-scan');
+      const vRec = document.getElementById('view-records');
+      const vRep = document.getElementById('view-reports');
+      const tScan = document.getElementById('tab-scan');
+      const tRec = document.getElementById('tab-records');
+      const tRep = document.getElementById('tab-reports');
+
+      // Hide all
+      [vScan, vRec, vRep].forEach(el => el.classList.add('hidden'));
+      [tScan, tRec, tRep].forEach(el => el.classList.remove('active'));
+      stopScanner();
+
+      if (mode === 'scan') {
+        vScan.classList.remove('hidden');
+        tScan.classList.add('active');
+        startScanner();
+      } else if (mode === 'records') {
+        vRec.classList.remove('hidden');
+        tRec.classList.add('active');
+        refreshRecords();
+      } else if (mode === 'reports') {
+        vRep.classList.remove('hidden');
+        tRep.classList.add('active');
+        refreshReports();
+      }
+    }
+
+    // --- Scanner ---
+    function startScanner() {
+      if (html5QrcodeScanner) return; // Already running
+
+      html5QrcodeScanner = new Html5Qrcode("reader");
+      html5QrcodeScanner.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        onScanSuccess,
+        (errorMessage) => { /* Background scan errors are frequent and ignorable */ }
+      ).catch(err => {
+        showToast(`Camera start failed: ${err.message || err}`, "error");
+        // Fallback if camera fail
+        document.getElementById('reader').innerHTML = `<p style="padding:40px;color:var(--error);">Camera access denied or unavailable. Please ensure you are on localhost or HTTPS, and have granted permissions.</p>`;
+      });
+    }
+
+    function stopScanner() {
+      if (html5QrcodeScanner) {
+        html5QrcodeScanner.stop().then(() => {
+          html5QrcodeScanner.clear();
+          html5QrcodeScanner = null;
+        }).catch(e => console.log('Stop error', e));
+      }
+    }
+
+    // State var to prevent scanning the same QR Rapid-fire
+    let isProcessingScan = false;
+
+    async function onScanSuccess(decodedText, decodedResult) {
+      if (isProcessingScan) return;
+      isProcessingScan = true;
+
+      try {
+        const qrCodeText = decodedText;
+
+        // Attempt to mark attendance
+        const res = await fetch(`${API}/attend`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            qr_code: qrCodeText,
+            exam_id: currentSession.id,
+            teacher_id: localStorage.getItem('teacher_session')
+          })
+        });
+        const attendResponse = await res.json();
+
+        if (res.ok) {
+          showToast(`✅ ${attendResponse.message} (${attendResponse.student_name})`, 'success');
+
+          // Auto-update the Reports tab (Audit Logs, Summary, Absentees) in the background
+          refreshReports();
+
+          // Adding a slight delay to allow the teacher to say "next!" before it scans the exact same QR
+          setTimeout(() => { isProcessingScan = false; }, 2000);
+        } else {
+          showToast(attendResponse.error || "Failed to mark", "error");
+          setTimeout(() => { isProcessingScan = false; }, 1500);
+        }
+      } catch (e) {
+        showToast("❌ Invalid QR Code scanned.", "error");
+        setTimeout(() => { isProcessingScan = false; }, 1500);
+      }
+    }
+
+    // --- Records ---
+    async function refreshRecords() {
+      const tbody = document.getElementById('records-body');
+      tbody.innerHTML = '<tr><td colspan="3" style="text-align: center;">Loading...</td></tr>';
+
+      try {
+        const res = await fetch(`${API}/records/all/${currentSession.id}`);
+        const rows = await res.json();
+
+        tbody.innerHTML = rows.map(r => {
+          const isPresent = r.status === 'PRESENT';
+          let timeStr = isPresent ? new Date(r.marked_at).toLocaleTimeString() : 'Absent';
+
+          return `
         <tr class="${isPresent ? 'present' : ''}">
           <td>${r.name}</td>
           <td>${r.email}</td>
           <td>${timeStr}</td>
         </tr>
       `;
-    }).join('');
-  } catch (e) {
-    tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--error);">Failed to load records.</td></tr>';
-  }
-}
+        }).join('');
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--error);">Failed to load records.</td></tr>';
+      }
+    }
 
-// --- Toast Utility ---
-let toastTimeout;
-function showToast(msg, type = "success") {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.className = `show ${type}`;
-  
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
-    toast.className = toast.className.replace('show', '').trim();
-  }, 3000);
-}
+    // --- Reports (View, Cursor, Trigger) ---
+    async function refreshReports() {
+      if (!currentSession) return;
 
-// Init
-fetchSessions();
-</script>
+      // 1. Fetch Summary (View)
+      fetch(`${API}/records/summary/${currentSession.id}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('summary-total').textContent = data.total_enrolled || 0;
+          document.getElementById('summary-present').textContent = data.total_present || 0;
+          document.getElementById('summary-absent').textContent = data.total_absent || 0;
+        }).catch(e => console.error(e));
+
+      // 2. Fetch Absentees (Cursor)
+      fetch(`${API}/records/absentees/${currentSession.id}`)
+        .then(res => res.json())
+        .then(data => {
+          const tbody = document.getElementById('absentees-body');
+          if (data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="2" style="text-align: center;">No absentees!</td></tr>';
+          } else {
+            tbody.innerHTML = data.map(r => `<tr><td>${r.enrollment_number}</td><td>${r.name}</td></tr>`).join('');
+          }
+        }).catch(e => console.error(e));
+
+      // 3. Fetch Audit Logs (Trigger)
+      fetch(`${API}/audit-logs`)
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('audit-logs-container');
+          if (data.length === 0) {
+            container.innerHTML = 'No logs found.';
+          } else {
+            container.innerHTML = data.map(log => `[${new Date(log.logged_at).toLocaleString()}] [${log.action_type}] ${log.description}`).join('<br>');
+          }
+        }).catch(e => console.error(e));
+    }
+
+    // --- Toast Utility ---
+    let toastTimeout;
+    function showToast(msg, type = "success") {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = `show ${type}`;
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.className = toast.className.replace('show', '').trim();
+      }, 3000);
+    }
+
+    // Init
+    fetchSessions();
+  </script>
 </body>
+
 </html>
